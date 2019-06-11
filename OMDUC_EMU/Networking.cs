@@ -473,6 +473,18 @@ namespace OMDUC_EMU
                         Send(handler, state, mAnimaticDefinitions.SerializeMessage());
                         #endregion
 
+                        #region Sabotage BaseItems
+                        PushBaseSabotageItems mPushBaseSabotageItems = new PushBaseSabotageItems();
+
+                        mPushBaseSabotageItems.SecurityToken = message.SecurityToken;
+                        mPushBaseSabotageItems.SessionToken = message.SessionToken;
+                        mPushBaseSabotageItems.RequestID = message.RequestID;
+
+
+                        Console.WriteLine("[-] Sending Sabotage Base Items");
+                        Send(handler, state, mPushBaseSabotageItems.SerializeMessage());
+                        #endregion
+
                         #region Sabotage Rankings
                         PushSabotageRankingDefinition mSabotageRankingDefinition = new PushSabotageRankingDefinition();
                         mSabotageRankingDefinition.SecurityToken = message.SecurityToken;
@@ -885,19 +897,32 @@ namespace OMDUC_EMU
                         mPushPlayerInventoryUpdate.RequestID = message.RequestID;
                         mPushPlayerInventoryUpdate.SessionToken = message.SessionToken;
                         mPushPlayerInventoryUpdate.SecurityToken = message.SecurityToken;
+                     
+                        InventoryEntry testEntry = new InventoryEntry();
+                        testEntry.IsBanned = false;
+                        testEntry.AlwaysOwned = true;
+                        testEntry.Count = 1;
+                        testEntry.DoesOwn = true;
+                        testEntry.InventoryProtoGUID = 100040;
+                        testEntry.IsUpgradable = true;
+                        testEntry.InventoryProtoType = eInventoryProtoType.Trap;
+                        testEntry.NewItem = false;
+                        testEntry.Slots.Add(1);
 
-                        InventoryEntry inventoryEntry = new InventoryEntry();
-                        inventoryEntry.IsBanned = false;
-                        inventoryEntry.AlwaysOwned = true;
-                        inventoryEntry.Count = 1;
-                        inventoryEntry.DoesOwn = true;
-                        inventoryEntry.InventoryProtoGUID = 100046;
-                        inventoryEntry.InventoryProtoType = eInventoryProtoType.Gear;
-                        inventoryEntry.NewItem = false;
-                        inventoryEntry.Slots.Add(1);
-                        inventoryEntry.Strength = 1;
 
-                        mPushPlayerInventoryUpdate.Items.Add(inventoryEntry);
+                        InventoryEntry potion = new InventoryEntry();
+                        potion.IsBanned = false;
+                        potion.AlwaysOwned = false;
+                        potion.Count = 0;
+                        potion.DoesOwn = false;
+                        potion.InventoryProtoGUID = 100959;
+                        potion.IsUpgradable = false;
+                        potion.InventoryProtoType = eInventoryProtoType.Consumable;
+                        potion.NewItem = false;
+
+                        mPushPlayerInventoryUpdate.Items.Add(testEntry);
+                        mPushPlayerInventoryUpdate.Items.Add(potion);
+
 
                         Send(handler, state, mPushPlayerInventoryUpdate.SerializeMessage());
 
@@ -930,7 +955,7 @@ namespace OMDUC_EMU
                         mPushPlayerCampaignProgress.CraftedItemGUID = 0;
                         mPushPlayerCampaignProgress.MissionProgress.Add(pmpfn);
 
-                        Send(handler, state, mPushPlayerCampaignProgress.SerializeMessage());
+                       Send(handler, state, mPushPlayerCampaignProgress.SerializeMessage());
 
                         PushTutorialProgress mPushTutorialProgress = new PushTutorialProgress();
                         mPushTutorialProgress.RequestID = message.RequestID;
