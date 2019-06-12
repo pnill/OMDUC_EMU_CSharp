@@ -405,10 +405,55 @@ namespace OMDUC_EMU
                         mCampaignDefinitions.SecurityToken = message.SecurityToken;
                         mCampaignDefinitions.RequestID = message.RequestID;
 
-                        /*PacketCampaign pCampaign = new PacketCampaign();
-                        pCampaign.
-                        mCampaignDefinitions.Campaigns.Add()
-                        */
+                        PacketCampaign pCampaign = new PacketCampaign();
+                        pCampaign.CampaignID = 1;
+                        pCampaign.Name = "Test Campaign";
+
+                        PacketCampaignMission pCampaignMission = new PacketCampaignMission();
+                        pCampaignMission.PrerequisiteMissionID = 0;
+                        pCampaignMission.GameMapID = 1;
+                        pCampaignMission.GameType = eGameType.Tutorial;
+                        pCampaignMission.NameLocKey = "Test";
+
+                        PacketCampaignMission pCampaignMission2 = new PacketCampaignMission();
+                        pCampaignMission2.PrerequisiteMissionID = 0;
+                        pCampaignMission2.GameMapID = 2;
+                        pCampaignMission2.GameType = eGameType.Tutorial;
+                        pCampaignMission2.NameLocKey = "Test2";
+
+                        PacketCampaignMission pCampaignMission3 = new PacketCampaignMission();
+                        pCampaignMission3.PrerequisiteMissionID = 0;
+                        pCampaignMission3.GameMapID = 3;
+                        pCampaignMission3.GameType = eGameType.Tutorial;
+                        pCampaignMission3.NameLocKey = "Test3";
+
+                        PacketCampaignMission pCampaignMission4 = new PacketCampaignMission();
+                        pCampaignMission4.PrerequisiteMissionID = 0;
+                        pCampaignMission4.GameMapID = 4;
+                        pCampaignMission4.GameType = eGameType.Tutorial;
+                        pCampaignMission4.NameLocKey = "Test4";
+
+                        PacketCampaignMission pCampaignMission5 = new PacketCampaignMission();
+                        pCampaignMission5.PrerequisiteMissionID = 0;
+                        pCampaignMission5.GameMapID = 5;
+                        pCampaignMission5.GameType = eGameType.Tutorial;
+                        pCampaignMission5.NameLocKey = "Test5";
+
+                        PacketCampaignMission pCampaignMission6 = new PacketCampaignMission();
+                        pCampaignMission6.PrerequisiteMissionID = 0;
+                        pCampaignMission6.GameMapID = 6;
+                        pCampaignMission6.GameType = eGameType.Tutorial;
+                        pCampaignMission6.NameLocKey = "Test6";
+
+
+                        pCampaign.SequentialMissions.Add(pCampaignMission);
+                        pCampaign.SequentialMissions.Add(pCampaignMission2);
+                        pCampaign.SequentialMissions.Add(pCampaignMission3);
+                        pCampaign.SequentialMissions.Add(pCampaignMission4);
+                        pCampaign.SequentialMissions.Add(pCampaignMission5);
+                        pCampaign.SequentialMissions.Add(pCampaignMission6);
+
+                        mCampaignDefinitions.Campaigns.Add(pCampaign);
 
                         Console.WriteLine("[-] Sending campaign definitions");
                         Send(handler, state, mCampaignDefinitions.SerializeMessage());
@@ -807,8 +852,8 @@ namespace OMDUC_EMU
                         mGameMapList.GameMaps.Add(new GameMap
                         {
                             ArrangedGame = false,
-                            MapName = "Test Map",
-                            MapID = 0,
+                            MapName = "NPE_1.umap",
+                            MapID = 1,
                             MapDisplayName = "Test Display Name",
                             MapDescription = "Test map description",
                             SplashImage = "test_splash.jpg",
@@ -943,12 +988,12 @@ namespace OMDUC_EMU
                         PlayerMissionProgressForNetwork pmpfn = new PlayerMissionProgressForNetwork();
                         pmpfn.MissionID = 1;
                         pmpfn.StarsEarned = 0;
-                        pmpfn.Status = eMissionStatus.None;
+                        pmpfn.Status = eMissionStatus.Started;
                         pmpfn.DeckID = 1;
                         pmpfn.CampaignID = 1;
 
 
-                        mPushPlayerCampaignProgress.IsSurvivalUnlocked = false;
+                        mPushPlayerCampaignProgress.IsSurvivalUnlocked = true;
                         mPushPlayerCampaignProgress.IsSiegeUnlocked = false;
                         mPushPlayerCampaignProgress.IsWorkshopTaskComplete = false;
                         mPushPlayerCampaignProgress.CampaignID = 1;
@@ -963,11 +1008,12 @@ namespace OMDUC_EMU
                         mPushTutorialProgress.SecurityToken = message.SecurityToken;
 
                         PacketTutorialProgress pPacketTutorialProgress = new PacketTutorialProgress();
-                        pPacketTutorialProgress.InProgress = false;
+                        pPacketTutorialProgress.InProgress = true;
                         pPacketTutorialProgress.IsComplete = false;
                         pPacketTutorialProgress.NextSection = 0;
                         pPacketTutorialProgress.SceneID = eSceneID.ProloguePage;
                         pPacketTutorialProgress.TabID = 0;
+            
 
                         mPushTutorialProgress.TutorialProgress.Add(pPacketTutorialProgress);
 
